@@ -1,0 +1,229 @@
+.btn-rojo {
+    color: #ffffff;
+    background-color: $rojo;
+    border-color: $rojo;
+}
+
+.btn-rojo:hover,
+.btn-rojo:focus,
+.btn-rojo:active,
+.btn-rojo.active,
+.open .dropdown-toggle.btn-rojo {
+    color: #ffffff;
+    background-color: $rojo-accent;
+    border-color: $rojo;
+}
+
+.btn-rojo:active,
+.btn-rojo.active,
+.open .dropdown-toggle.btn-rojo {
+    background-image: none;
+}
+
+.btn-rojo.disabled,
+.btn-rojo[disabled],
+fieldset[disabled] .btn-rojo,
+.btn-rojo.disabled:hover,
+.btn-rojo[disabled]:hover,
+fieldset[disabled] .btn-rojo:hover,
+.btn-rojo.disabled:focus,
+.btn-rojo[disabled]:focus,
+fieldset[disabled] .btn-rojo:focus,
+.btn-rojo.disabled:active,
+.btn-rojo[disabled]:active,
+fieldset[disabled] .btn-rojo:active,
+.btn-rojo.disabled.active,
+.btn-rojo[disabled].active,
+fieldset[disabled] .btn-rojo.active {
+    background-color: $rojo;
+    border-color: $rojo;
+}
+
+.btn-rojo .badge {
+    color: $rojo;
+    background-color: #ffffff;
+}
+
+.btn-amarillo {
+    color: #ffffff;
+    background-color: $amarillo;
+    border-color: $amarillo;
+}
+
+.btn-amarillo:hover,
+.btn-amarillo:focus,
+.btn-amarillo:active,
+.btn-amarillo.active,
+.open .dropdown-toggle.btn-amarillo {
+    color: #ffffff;
+    background-color: $amarillo-accent;
+    border-color: $amarillo;
+}
+
+.btn-amarillo:active,
+.btn-amarillo.active,
+.open .dropdown-toggle.btn-amarillo {
+    background-image: none;
+}
+
+.btn-amarillo.disabled,
+.btn-amarillo[disabled],
+fieldset[disabled] .btn-amarillo,
+.btn-amarillo.disabled:hover,
+.btn-amarillo[disabled]:hover,
+fieldset[disabled] .btn-amarillo:hover,
+.btn-amarillo.disabled:focus,
+.btn-amarillo[disabled]:focus,
+fieldset[disabled] .btn-amarillo:focus,
+.btn-amarillo.disabled:active,
+.btn-amarillo[disabled]:active,
+fieldset[disabled] .btn-amarillo:active,
+.btn-amarillo.disabled.active,
+.btn-amarillo[disabled].active,
+fieldset[disabled] .btn-amarillo.active {
+    background-color: $amarillo;
+    border-color: $amarillo;
+}
+
+.btn-amarillo .badge {
+    color: $amarillo;
+    background-color: #ffffff;
+}
+
+.btn-verde {
+    color: #ffffff;
+    background-color: $verde;
+    border-color: $verde;
+}
+
+.btn-verde:hover,
+.btn-verde:focus,
+.btn-verde:active,
+.btn-verde.active,
+.open .dropdown-toggle.btn-verde {
+    color: #ffffff;
+    background-color: $verde-accent;
+    border-color: $verde;
+}
+
+.btn-verde:active,
+.btn-verde.active,
+.open .dropdown-toggle.btn-verde {
+    background-image: none;
+}
+
+.btn-verde.disabled,
+.btn-verde[disabled],
+fieldset[disabled] .btn-verde,
+.btn-verde.disabled:hover,
+.btn-verde[disabled]:hover,
+fieldset[disabled] .btn-verde:hover,
+.btn-verde.disabled:focus,
+.btn-verde[disabled]:focus,
+fieldset[disabled] .btn-verde:focus,
+.btn-verde.disabled:active,
+.btn-verde[disabled]:active,
+fieldset[disabled] .btn-verde:active,
+.btn-verde.disabled.active,
+.btn-verde[disabled].active,
+fieldset[disabled] .btn-verde.active {
+    background-color: $verde;
+    border-color: $verde;
+}
+
+.btn-verde .badge {
+    color: $verde;
+    background-color: #ffffff;
+}
+
+.btn-cafe {
+    color: #ffffff;
+    background-color: $cafe;
+    border-color: $cafe;
+}
+
+.btn-cafe:hover,
+.btn-cafe:focus,
+.btn-cafe:active,
+.btn-cafe.active,
+.open .dropdown-toggle.btn-cafe {
+    color: #ffffff;
+    background-color: $cafe-accent;
+    border-color: $cafe;
+}
+
+.btn-cafe:active,
+.btn-cafe.active,
+.open .dropdown-toggle.btn-cafe {
+    background-image: none;
+}
+
+.btn-cafe.disabled,
+.btn-cafe[disabled],
+fieldset[disabled] .btn-cafe,
+.btn-cafe.disabled:hover,
+.btn-cafe[disabled]:hover,
+fieldset[disabled] .btn-cafe:hover,
+.btn-cafe.disabled:focus,
+.btn-cafe[disabled]:focus,
+fieldset[disabled] .btn-cafe:focus,
+.btn-cafe.disabled:active,
+.btn-cafe[disabled]:active,
+fieldset[disabled] .btn-cafe:active,
+.btn-cafe.disabled.active,
+.btn-cafe[disabled].active,
+fieldset[disabled] .btn-cafe.active {
+    background-color: $cafe;
+    border-color: $cafe;
+}
+
+.btn-cafe .badge {
+    color: $cafe;
+    background-color: #ffffff;
+}
+
+.btn-morado {
+    color: #ffffff;
+    background-color: $morado;
+    border-color: $morado;
+}
+
+.btn-morado:hover,
+.btn-morado:focus,
+.btn-morado:active,
+.btn-morado.active,
+.open .dropdown-toggle.btn-morado {
+    color: #ffffff;
+    background-color: $morado-accent;
+    border-color: $morado;
+}
+
+.btn-morado:active,
+.btn-morado.active,
+.open .dropdown-toggle.btn-morado {
+    background-image: none;
+}
+
+.btn-morado.disabled,
+.btn-morado[disabled],
+fieldset[disabled] .btn-morado,
+.btn-morado.disabled:hover,
+.btn-morado[disabled]:hover,
+fieldset[disabled] .btn-morado:hover,
+.btn-morado.disabled:focus,
+.btn-morado[disabled]:focus,
+fieldset[disabled] .btn-morado:focus,
+.btn-morado.disabled:active,
+.btn-morado[disabled]:active,
+fieldset[disabled] .btn-morado:active,
+.btn-morado.disabled.active,
+.btn-morado[disabled].active,
+fieldset[disabled] .btn-morado.active {
+    background-color: $morado;
+    border-color: $morado;
+}
+
+.btn-morado .badge {
+    color: $morado;
+    background-color: #ffffff;
+}

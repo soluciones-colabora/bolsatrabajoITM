@@ -1,0 +1,86 @@
+  <ng-container *ngIf="joboffers$ | async as joboffers; else loading">
+    <h4>Ofertas de trabajo</h4>
+    <div class="borde-tec p-b-4"></div>
+    <br>
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <span><i class="icon ion-ios-search icon-x-small p-2"> </i></span>
+          <label for="search">Búsqueda</label>
+          <input type="text" id="search" class="form-control" placeholder="Ingresa tu búsqueda aquí" aria-label="Ingresa tu búsqueda aquí" aria-describedby="basic-addon1"
+          (keyup)="onSearch($event, joboffers)">
+        </div>
+        <div class="form-group col-md-6" *ngIf="selected.length">
+          <label for="">Acciones para selección</label>
+          <div class="actions" style="margin-bottom: 0px;">
+              <button type="button" (click)="removeOffers(selected, DeleteJoboffersBatch)" class="btn btn-danger">
+                <i class="icon ion-ios-trash p-2"> </i> Eliminar ofertas de trabajo
+              </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <ngx-datatable class="material" [rows]="filtered" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10"
+      [selected]="selected" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+      (select)="onSelect($event)">
+      <ngx-datatable-column class="material" [width]="30" [sortable]="true" [canAutoResize]="false" [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Puesto" prop="position"></ngx-datatable-column>
+      <ngx-datatable-column name="Empresa" prop="enterpriseName"></ngx-datatable-column>
+      <ngx-datatable-column name="Fecha de publicación" prop="createdOn">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value">
+          {{value.toDate() | date:'fullDate'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" prop="uid">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+          <div class="actions" *ngIf="!selected.length">
+            <button type="button" (click)="viewOffer(value)" ngbTooltip="Ver oferta" class="btn btn-info">
+              <i class="icon ion-ios-eye p-2"> </i>
+            </button>
+            <button type="button" (click)="editOffer(value)" ngbTooltip="Editar oferta" class="btn btn-warning">
+              <i class="icon ion-ios-alert p-2"> </i>
+            </button>
+            <button type="button" (click)="removeOffer(value, DeleteJoboffer)" ngbTooltip="Eliminar oferta" class="btn btn-danger">
+              <i class="icon ion-ios-trash p-2"> </i>
+            </button>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+    <br>
+  </ng-container>
+
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
+
+  <ng-template #DeleteJoboffer let-c="close()" let-d="dismiss()">
+    <div class="modal-header">
+      <h4 class="modal-title">Eliminar oferta</h4>
+      <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>¿Deseas eliminar esta oferta de trabajo?</p>
+      Esta acción borrará la oferta seleccionada, así cómo todos sus datos
+    </div>
+    <div class="modal-footer modal-confirm">
+      <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="c">Eliminar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #DeleteJoboffersBatch let-c="close()" let-d="dismiss()">
+    <div class="modal-header">
+      <h4 class="modal-title">Eliminar ofertas</h4>
+      <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>¿Deseas eliminar las ofertas de trabajo selecionadas?</p>
+      Esta acción eliminará todas las ofertas seleccionadoa, así cómo todos sus datos
+    </div>
+    <div class="modal-footer modal-confirm">
+      <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="c">Eliminar</button>
+    </div>
+  </ng-template>

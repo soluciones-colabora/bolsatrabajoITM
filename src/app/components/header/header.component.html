@@ -1,0 +1,110 @@
+<!-- Navbar general para inicio de sesión -->
+
+
+<div *ngIf="loading; else loaded">
+  <nav class="navbar navbar-expand-sm">
+    <a class="navbar-brand  mr-auto" [routerLink]="['/index']">
+      <i class="icon ion-ios-home icon-x-small p-2"> </i> Inicio
+    </a>
+  </nav>
+</div>
+<ng-template #loaded>
+  <div *ngIf="user; else notlogged">
+    <div [ngSwitch]="user.role">
+      <nav class="navbar navbar-expand-sm" *ngSwitchCase="'student'">
+        <a class="navbar-brand  mr-auto" [routerLink]="['/index']">
+          <i class="icon ion-ios-home icon-x-small p-2"> </i> Inicio
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"><i class="fa fa-navicon"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{user.firstName}} {{user.middleName}} {{user.lastName}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" [routerLink]="['/profile/student', user.uid]">Perfil</a>
+                  <a class="dropdown-item" [routerLink]="['/list/joboffers']">Ofertas de trabajo</a>
+                <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" [routerLink]="['/index']" (click)="authService.logout()">Cerrar Sesión</a>
+                </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <nav class="navbar navbar-expand-sm" *ngSwitchCase="'enterprise'">
+        <a class="navbar-brand  mr-auto" [routerLink]="['/index']">
+          <i class="icon ion-ios-home icon-x-small p-2"> </i> Inicio
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{user.comercialName}}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" [routerLink]="['/profile/enterprise', user.uid]">Perfil</a>
+                <a class="dropdown-item" [routerLink]="['/list/joboffers', user.uid]">Ofertas de trabajo</a>
+                <a class="dropdown-item" [routerLink]="['/register/joboffer']">Registrar Oferta</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" [routerLink]="['/index']" (click)="authService.logout()">Cerrar Sesión</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <nav class="navbar navbar-expand-sm" *ngSwitchCase="'admin'">
+        <a class="navbar-brand  mr-auto" [routerLink]="['/index']">
+          <i class="icon ion-ios-home icon-x-small p-2"> </i> Inicio
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{user.firstName}} {{user.middleName}} {{user.lastName}}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" [routerLink]="['/admin/students']">Estudiantes</a>
+                <a class="dropdown-item" [routerLink]="['/admin/enterprises']">Empresas</a>
+                <a class="dropdown-item" [routerLink]="['/admin/joboffers']">Ofertas</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" [routerLink]="['/index']" (click)="authService.logout()">Cerrar Sesión</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <ng-template #notlogged let-user>
+      <nav class="navbar navbar-expand-sm">
+          <a class="navbar-brand  mr-auto" [routerLink]="['/index']">
+              <i class="icon ion-ios-home icon-x-small p-2"> </i> Inicio
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="icon ion-ios-menu"> </i>
+    </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['/login']">Iniciar sesión  </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['/register/student']">Registro de estudiante</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['/register/employeer']">Registro de empresa</a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+  </ng-template>
+</ng-template>

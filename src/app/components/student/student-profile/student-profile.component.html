@@ -1,0 +1,320 @@
+<ng-container *ngIf=" student$ | async as student; else loading">
+  <h1>Perfil de Estudiante</h1>
+  <form [formGroup]="formulario" (ngSubmit)="update(student, registerModal)">
+    <h4>Datos generales del alumno</h4>
+    <div class="borde-tec p-b-4"></div>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="firstName">Nombres</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="firstName" id="firstName" value={{student.firstName}}
+        [class.is-invalid]="!formulario.get( 'firstName').valid && formulario.get( 'firstName').dirty"
+        [class.is-valid]="formulario.get( 'firstName').valid && formulario.get('firstName').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'firstName').valid && formulario.get( 'firstName').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="middleName">Apellido paterno</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="middleName" id="middleName" value={{student.middleName}}
+        [class.is-invalid]="!formulario.get( 'middleName').valid && formulario.get( 'middleName').dirty"
+        [class.is-valid]="formulario.get( 'middleName').valid && formulario.get( 'middleName').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'middleName').valid && formulario.get( 'middleName').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+          <label for="lastName">Apellido materno</label>
+          <input type="text" class="form-control" [readonly]="isreadonly" formControlName="lastName" id="lastName" value={{student.lastName}}
+          [class.is-invalid]="!formulario.get( 'lastName').valid && formulario.get( 'lastName').dirty"
+          [class.is-valid]="formulario.get( 'lastName').valid && formulario.get( 'lastName').dirty">
+          <div class="invalid-feedback" *ngIf="!formulario.get( 'lastName').valid && formulario.get( 'lastName').dirty">
+            *Campo requerido
+          </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label class="mr-sm-2" for="sex">Sexo</label>
+        <ng-container *ngIf="isreadonly; else selectSex">
+          <input type="text" class="form-control" [readonly]="isreadonly" value={{student.sex}}>
+        </ng-container>
+        <ng-template #selectSex>
+          <select class="custom-select select-tec mr-sm-2" formControlName="sex" id="sex">
+          <option value="" selected disabled hidden>{{student.sex}}</option>
+          <option *ngFor="let gender of texts.genders" [ngValue]="gender">{{gender}}</option>
+          </select>
+        </ng-template>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="age">Fecha de nacimiento</label>
+        <input type="date" class="form-control" [readonly]="isreadonly" formControlName="age" id="age" value={{student.age}}
+        [class.is-invalid]="!formulario.get( 'age').valid && formulario.get( 'age').dirty"
+        [class.is-valid]="formulario.get('age').valid && formulario.get( 'age').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'age').valid && formulario.get( 'age').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="mr-sm-2" for="maritalStatus">Estado civil</label>
+        <ng-container *ngIf="isreadonly; else selectMaritalStatus">
+          <input type="text" class="form-control" [readonly]="isreadonly" value={{student.maritalStatus}}>
+        </ng-container>
+        <ng-template #selectMaritalStatus>
+          <select class="custom-select select-tec mr-sm-2" formControlName="maritalStatus" id="maritalStatus">
+            <option value="" selected disabled hidden>{{student.maritalStatus}}</option>
+            <option *ngFor="let maritalStatus of texts.maritalStatuses" [ngValue]="maritalStatus">{{maritalStatus}}</option>
+          </select>
+        </ng-template>
+      </div>
+    </div>
+
+    <h4>Dirección</h4>
+    <div class="borde-tec p-b-4"></div>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="mainStreet">Calle principal y número</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="mainStreet" id="mainStreet" value={{student.address.mainStreet}}
+        [class.is-invalid]="!formulario.get( 'mainStreet').valid && formulario.get('mainStreet').dirty"
+        [class.is-valid]="formulario.get( 'mainStreet').valid && formulario.get( 'mainStreet').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'mainStreet').valid && formulario.get( 'mainStreet').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="crossings">Cruzamientos</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="crossings" id="crossings" value={{student.address.crossings}}
+        [class.is-invalid]="!formulario.get( 'crossings').valid && formulario.get('crossings').dirty"
+        [class.is-valid]="formulario.get( 'crossings').valid && formulario.get( 'crossings').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'crossings').valid && formulario.get( 'crossings').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="postalCode">Código postal</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="postalCode" id="postalCode" value={{student.address.postalCode}}
+        [class.is-invalid]="!formulario.get( 'postalCode').valid && formulario.get('postalCode').dirty"
+        [class.is-valid]="formulario.get( 'postalCode').valid && formulario.get( 'postalCode').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get( 'postalCode').hasError( 'required') && formulario.get( 'postalCode').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'postalCode').hasError( 'pattern') && formulario.get( 'postalCode').dirty">
+          *Verifica que el código postal está bien escrito
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'postalCode').hasError( 'max') && formulario.get( 'postalCode').dirty">
+          *Verifica que el código postal está bien escrito
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="city666">Ciudad</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="city" id="city" value={{student.address.city}}
+        [class.is-invalid]="!formulario.get( 'city').valid && formulario.get( 'city').dirty"
+        [class.is-valid]="formulario.get( 'city').valid && formulario.get( 'city').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'city').valid && formulario.get( 'city').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="municipality">Municipio</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="municipality" id="municipality" value={{student.address.municipality}}
+        [class.is-invalid]="!formulario.get( 'municipality').valid && formulario.get('municipality').dirty"
+        [class.is-valid]="formulario.get( 'municipality').valid && formulario.get( 'municipality').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'municipality').valid && formulario.get( 'municipality').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="state">Estado</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="state" id="state" value={{student.address.state}}
+        [class.is-invalid]="!formulario.get( 'state').valid && formulario.get( 'state').dirty"
+        [class.is-valid]="formulario.get( 'state').valid && formulario.get( 'state').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'state').valid && formulario.get( 'state').dirty">
+        *Campo requerido
+        </div>
+      </div>
+    </div>
+
+    <h4>Datos Académicos</h4>
+    <div class="borde-tec p-b-4"></div>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="idStudent">Matricula</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="idStudent" id="idStudent" value={{student.idStudent}}
+        [class.is-invalid]="!formulario.get( 'idStudent').valid && formulario.get( 'idStudent').dirty"
+        [class.is-valid]="formulario.get( 'idStudent').valid && formulario.get( 'idStudent').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get( 'idStudent').hasError( 'required') && formulario.get( 'idStudent').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'idStudent').hasError( 'pattern') && formulario.get( 'idStudent').dirty">
+          *Verifica que la matrícula esté bien escrita
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'idStudent').hasError( 'maxlength') && formulario.get( 'idStudent').dirty">
+          *Verifique la longitud de la matrícula.
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="mr-sm-2" for="bachelor">Carrera de egreso</label>
+        <ng-container *ngIf="isreadonly; else selectBachelor">
+          <input type="text" class="form-control" [readonly]="isreadonly" value={{student.degree.bachelor}}>
+        </ng-container>
+        <ng-template #selectBachelor>
+          <select class="custom-select select-tec mr-sm-2" formControlName="bachelor" id="bachelor">
+            <option value="" selected disabled hidden>{{student.degree.bachelor}}</option>
+            <option *ngFor="let bachelor of texts.bachelors" [ngValue]="bachelor.value">{{bachelor.name}}</option>
+          </select>
+        </ng-template>
+      </div>
+      <div class="form-group col-md-5">
+        <label for="speciality">Especialidad</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="speciality" id="speciality" value={{student.degree.speciality}}>
+        <!-- <input type="text" class="form-control" [readonly]="isreadonly" formControlName="speciality" id="speciality" value={{student.degree.speciality}}
+        [class.is-invalid]="!formulario.get( 'speciality').valid && formulario.get('speciality').dirty"
+        [class.is-valid]="formulario.get( 'speciality').valid && formulario.get( 'speciality').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'speciality').valid && formulario.get( 'speciality').dirty">
+          *Campo requerido
+        </div> -->
+      </div>
+      <div class="form-group col-md-6">
+        <label for="master">Maestría</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="master" id="master" value={{student.degree.master}}>
+        <!-- <input type="text" class="form-control" [readonly]="isreadonly" formControlName="master" id="master" value={{student.degree.master}}
+        [class.is-invalid]="!formulario.get( 'master').valid && formulario.get( 'master').dirty"
+        [class.is-valid]="formulario.get( 'master').valid && formulario.get( 'master').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'master').valid && formulario.get( 'master').dirty">
+          *Campo requerido
+        </div> -->
+      </div>
+      <div class="form-group col-md-6">
+        <label for="phd">Doctorado</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="phd" id="phd" value={{student.degree.phd}}>
+        <!-- <input type="text" class="form-control" [readonly]="isreadonly" formControlName="phd" id="phd" value={{student.degree.phd}}
+        [class.is-invalid]="!formulario.get( 'phd').valid && formulario.get( 'phd').dirty"
+        [class.is-valid]="formulario.get( 'phd').valid && formulario.get( 'phd').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get( 'phd').valid && formulario.get( 'phd').dirty">
+          *Campo requerido
+        </div> -->
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        Inglés(%)
+      </div>
+      <div class="form-group col-md-4">
+        <label for="spoken">Hablado</label>
+        <input type="number" class="form-control" min="0" max="100" [readonly]="isreadonly" formControlName="spoken" id="spoken" value={{student.languages.english.spoken}}
+        [class.is-invalid]="!formulario.get( 'spoken').valid && formulario.get('spoken').dirty"
+        [class.is-valid]="formulario.get( 'speciality').valid && formulario.get( 'spoken').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get( 'spoken').hasError( 'required') && formulario.get( 'spoken').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'spoken').hasError( 'min') && formulario.get( 'spoken').dirty">
+          *No se puede tener porcentajes negativos
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'spoken').hasError( 'max') && formulario.get( 'spoken').dirty">
+          *No se puede tener porcentajes mayores al 100%
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="written">Escrito</label>
+        <input type="number" class="form-control" min="0" max="100" [readonly]="isreadonly" formControlName="written" id="written" value={{student.languages.english.written}}
+        [class.is-invalid]="!formulario.get( 'written').valid && formulario.get( 'written').dirty"
+        [class.is-valid]="formulario.get( 'written').valid && formulario.get( 'written').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get( 'written').hasError( 'required') && formulario.get( 'written').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'written').hasError( 'min') && formulario.get( 'written').dirty">
+          *No se puede tener porcentajes negativos
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'written').hasError( 'max') && formulario.get( 'written').dirty">
+          *No se puede tener porcentajes mayores al 100%
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="translation">Traducción</label>
+        <input type="number" class="form-control" min="0" max="100" [readonly]="isreadonly" formControlName="translation" id="translation" value={{student.languages.english.translation}}
+        [class.is-invalid]="!formulario.get('translation').valid && formulario.get( 'translation').dirty"
+        [class.is-valid]="formulario.get( 'translation').valid && formulario.get( 'translation').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get( 'translation').hasError( 'required') && formulario.get( 'translation').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'translation').hasError( 'min') && formulario.get( 'translation').dirty">
+          *No se puede tener porcentajes negativos
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get( 'translation').hasError( 'max') && formulario.get( 'translation').dirty">
+          *No se puede tener porcentajes mayores al 100%
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="">Curriculum</label>
+        <br>
+        <ng-container *ngIf="!isreadonly; else downloadCV">
+          <div class="custom-file">
+            <input type="file" accept="application/pdf" class="custom-file-input" (change)="onFileChange($event.target.files)">
+            <ng-container *ngIf="file; else noFile">
+              <label class="custom-file-label" for="customFile">{{file.name}}</label>
+            </ng-container>
+            <ng-template #noFile>
+              <label class="custom-file-label" for="customFile"><i class="fa fa-upload"></i> Seleccione su CV</label>
+            </ng-template>
+          </div>
+          <div *ngIf="fileError.unsupported">
+            *Seleccione un archivo pdf por favor.
+          </div>
+          <div *ngIf="fileError.size">
+            *El tamaño del archivo debe ser menor a 1mb.
+          </div>
+        </ng-container>
+        <ng-template #downloadCV>
+          <a [href]="student.resumeURL" class="btn btn-outline-info"> <i class="icon ion-ios-cloud-download p-2"> </i>Descargar Currículum</a>
+        </ng-template>
+      </div>
+    </div>
+
+    <ng-container *ngIf="isreadonly; else submit">
+      <div class="form-row justify-content-md-center">
+        <div class="col-md-4">
+          <button type="button" class="text-center btn btn-rojo col-md-12" (click)="actualizar(student)">Actualizar Información</button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #submit>
+      <div class="form-row">
+        <div class="col-md-5 p-2">
+          <button type="submit" [disabled]="!formulario.valid" class="text-center btn btn-rojo col-md-12">Actualizar</button>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-5 p-2">
+          <button type="button" class="text-center btn btn-morado col-md-12" (click)="actualizar(student)">Cancelar</button>
+        </div>
+      </div>
+    </ng-template>
+  </form>
+</ng-container>
+
+
+<!-- Modal para guardar los cambios -->
+<ng-template #registerModal let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Guardar cambios</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <h6>{{modalMessage}}</h6>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-info" (click)="c">Guardar</button>
+  </div>
+</ng-template>
+
+<!-- Loading template -->
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

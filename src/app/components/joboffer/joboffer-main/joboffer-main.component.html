@@ -1,0 +1,52 @@
+<form class="">
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <label for="search">Búsqueda</label>
+      <input type="text" class="form-control" id="search" [(ngModel)]="searchFilter" name="filter" placeholder="Ingresa tu búsqueda aquí"
+      aria-label="Ingresa tu búsqueda aquí" aria-describedby="basic-addon1">
+    </div>
+    <div class="form-group col-md-4">
+      <label class="mr-sm-2" for="bachelor">Carrera de egreso</label>
+      <select class="custom-select select-tec mr-sm-2" id="bachelor" [(ngModel)]="selectedBachelor" name="first">
+        <option value="" selected disabled hidden>Elige una carrera...</option>
+        <option *ngFor="let bachelor of texts.bachelors" [ngValue]="bachelor.value">{{bachelor.name}}</option>
+      </select>
+    </div>
+  </div>
+</form>
+<br>
+<div class="d-flex flex-wrap justify-content-around">
+  <ng-container *ngIf="joboffers$ | async | paginate: {itemsPerPage: 6, currentPage: p} as joboffers; else loading">
+    <ng-container *ngIf="filter(joboffers) as filtered; else noResults">
+      <div class="card shadow col-lg-3" *ngFor="let joboffer of filtered">
+        <div *ngIf="!!joboffer.enterpriseLogo; else nologo">
+          <img class="card-img-top p-2 " [src]="joboffer.enterpriseLogo" alt="Card image cap">
+        </div>
+        <ng-template #nologo>
+          <img src="assets/nologo.png" alt="">
+        </ng-template>
+        <div class="card-body">
+          <h5 class="card-title"><strong> {{ joboffer.position }}</strong></h5>
+          <p class="card-text"><strong>{{joboffer.enterpriseName}}</strong></p>
+          <a [routerLink]="['/joboffer', joboffer.id]" class=""> <small> Ver oferta</small> <i class="icon ion-ios-eye"> </i></a>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noResults>
+        No se encontraron resultados a su búsqueda ...
+    </ng-template>
+  </ng-container>
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
+</div>
+<div class="d-flex justify-content-end">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+<!-- <ngb-pagination class="d-flex justify-content-end pagination" [collectionSize]="(count | async)?.total_count" [(page)]="page" (pageChange)="loadPage($event)" [pageSize]="Itemspage"></ngb-pagination> -->
+
+<ng-template #loading>
+    <app-loader></app-loader>
+</ng-template>
+<!-- </div> -->
+<br>

@@ -1,0 +1,38 @@
+<div *ngIf="joboffers$ | async as jobOffers; else loading">
+  <h1>Ofertas Registradas: </h1>
+  <ngx-datatable class="material" [rows]="jobOffers" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5"
+  [selected]="selected" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" [messages]="emptyMessage"
+  (activate)="onActivate($event)" (select)='onSelect($event)'>
+    <ngx-datatable-column class="material" [width]="30" [sortable]="true" [canAutoResize]="false" [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Puesto" prop="position"></ngx-datatable-column>
+    <ngx-datatable-column name="Sueldo" prop="economicAmount">
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value">
+        {{value | currency:'MXN':'symbol'}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Fecha" prop="createdOn">
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value">
+        {{value.toDate() | date:'fullDate'}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Aplicantes" prop="applicants.length"></ngx-datatable-column>
+    <ngx-datatable-column name="Acciones" prop="id">
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+        <a class="" (click)="goToOffer(value)" ngbTooltip="Ver oferta">
+          <i class="icon icon-visualizar ion-ios-eye icon-medium p-2"> </i>
+        </a>
+        <a class="" (click)="editOffer(value)" ngbTooltip="Editar Ofera">
+          <i class="icon icon-aprobar ion-ios-checkmark-circle icon-medium p-2"> </i>
+        </a>
+        <a class="" (click)="remove(value)" ngbTooltip="Eliminar oferta">
+          <i class="icon icon-eliminar ion-ios-trash icon-medium p-2"> </i>
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

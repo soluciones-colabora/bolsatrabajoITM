@@ -1,0 +1,185 @@
+<ng-container *ngIf="joboffer$ | async as joboffer; else loading">
+  <div class="card" *ngIf="enterprise$ | async as enterprise; else loading">
+    <h5 class="card-header">{{enterprise.comercialName}}</h5>
+    <div class="card-body">
+      <h5 class="card-title"><strong>{{joboffer.position}}</strong></h5>
+      <p class="card-text">{{joboffer.description}}</p>
+      <p class="card-text"><strong>Número de vacantes: </strong> <span class="badge badge-secondary">{{joboffer.vacantNumber}}</span></p>
+      <p class="card-text"><strong>Años de Experiencia: </strong> <span class="badge badge-secondary">{{joboffer.experience}}</span> </p>
+      <p class="card-text"><strong>{{ joboffer.economicType }}: </strong> <span class="badge badge-secondary">{{joboffer.economicAmount | currency:'MXN':'symbol'}}</span> </p>
+      <p class="card-text"><strong>Aptitudes: </strong></p>
+      <ul class="card-text" *ngIf="joboffer.aptitudes">
+          <li *ngFor="let aptitud of joboffer.aptitudes">{{aptitud | titlecase}}</li>
+      </ul>
+      <p class="card-text"><strong> Licenciaturas buscadas:</strong></p>
+      <ul class="card-text">
+          <li *ngFor="let bachelor of joboffer.bachelors">{{txts.getBachelorFromValue(bachelor).shortName}}</li>
+      </ul>
+      <p class="card-text"><strong>Inglés</strong> </p>
+      <ul class="card-text">
+          <li>Hablado: <span class="badge badge-secondary">{{joboffer.languages.english.spoken}}%</span></li>
+          <li>Escrito: <span class="badge badge-secondary">{{joboffer.languages.english.written}}%</span></li>
+          <li>Traducción: <span class="badge badge-secondary">{{joboffer.languages.english.translation}}%</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <br>
+
+  <ng-container *ngIf="user$ | async as user; else loading">
+    <div [ngSwitch]="user.role">
+        <div *ngSwitchCase="'enterprise'">
+            <div *ngIf="students$ | async as students; else loading">
+              <ng-container *ngIf="students.length !==0; else noStudents">
+                <h3>Estudiantes postulados : </h3>
+                <ngx-datatable class="material" [rows]="students" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5">
+                  <ngx-datatable-column name="Nombre" prop="firstName">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+                        {{row.firstName}} {{row.middleName}} {{row.lastName}}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Carrera" prop="degree.bachelor">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value">
+                      {{ txts.getBachelorFromValue(value).shortName}}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Correo Electrónico" prop="email"></ngx-datatable-column>
+                  <ngx-datatable-column name="Teléfono" prop="phone"></ngx-datatable-column>
+                  <ngx-datatable-column name="Acciones" prop="id">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                      <a [href]="row.resumeURL" ngbTooltip="Descargar curriculum">
+                          <i class="icon icon-visualizar ion-ios-eye icon-x-small p-2"> </i>
+                      </a>
+                      <a class="" (click)="viewMessage(joboffer, row.uid, modalMessage)" ngbTooltip="Ver mensaje postulación">
+                          <i class="icon icon-visualizar ion-ios-eye icon-x-small p-2"> </i>
+                      </a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </ng-container>
+              <ng-template #noStudents>
+                  <h3>Estudiantes postulados : </h3>
+                  <h4>Ningún estudiante se ha postuldo</h4>
+              </ng-template>
+            </div>
+        </div>
+        <div *ngSwitchCase="'admin'">
+          <div *ngIf="students$ | async as students; else loading">
+            <ng-container *ngIf="students.length !==0; else noStudents">
+              <h3>Estudiantes postulados : </h3>
+              <ngx-datatable class="material" [rows]="students" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5">
+                <ngx-datatable-column name="Nombre" prop="firstName">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+                    {{row.firstName}} {{row.middleName}} {{row.lastName}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Carrera" prop="degree.bachelor">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value">
+                    {{ txts.getBachelorFromValue(value).shortName}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Correo Electrónico" prop="email"></ngx-datatable-column>
+                <ngx-datatable-column name="Teléfono" prop="phone"></ngx-datatable-column>
+                <ngx-datatable-column name="Acciones" prop="id">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                    <a [href]="row.resumeURL" ngbTooltip="Descargar curriculum">
+                      <i class="icon icon-visualizar ion-ios-eye icon-x-small p-2"> </i>
+                    </a>
+                    <a class="" (click)="viewMessage(joboffer, row.uid, modalMessage)" ngbTooltip="Ver mensaje postulación">
+                      <i class="icon icon-visualizar ion-ios-eye icon-x-small p-2"> </i>
+                    </a>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </ng-container>
+            <ng-template #noStudents>
+              <h3>Estudiantes postulados : </h3>
+              <h4>Ningún estudiante se ha postuldo</h4>
+            </ng-template>
+          </div>
+        </div>
+        <div *ngSwitchCase="'student'">
+            <ng-container *ngIf="isPostulated; else postulateTemplate">
+                <ngb-alert type="success" [dismissible]="false">
+                    Ya te has postulado para esta oferta, espera a que la empresa se contacte contigo.
+                </ngb-alert>
+            </ng-container>
+            <ng-template #postulateTemplate>
+                <!-- Template para postularse  -->
+                <ng-container *ngIf="success===undefined; else alert">
+                    <form [formGroup]="formulario" (ngSubmit)="postulate(joboffer, user.uid, modalGuardar)">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <!-- <label for="">Postularme a esta oferta</label> -->
+                                <textarea class="form-control" formControlName="postulación" aria-label="With textarea" placeholder="Escribe un mensaje de postulación para que la empresa te conozca..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <button class="btn btn-info ml-auto" type="submit">Postularme</button>
+                        </div>
+                    </form>
+                </ng-container>
+                <ng-template #alert>
+                    <ng-container *ngIf="success; else failure">
+                        <div class="animated fadeInUp fast">
+                            <ngb-alert type="success" [dismissible]="false">¡Tu oferta fue enviada exitosamente!</ngb-alert>
+                        </div>
+                    </ng-container>
+                    <ng-template #failure>
+                        <div class="animated fadeInUp fast">
+                            <ngb-alert type="danger" [dismissible]="false">¡Hubo un problema con tu postulación!</ngb-alert>
+                        </div>
+                    </ng-template>
+                </ng-template>
+            </ng-template>
+        </div>
+        <div *ngSwitchDefault>Error</div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #modalGuardar let-c="close()" let-d="dismiss()">
+    <!-- <div class="modal fade "> -->
+    <!-- <div class="modal-content"> -->
+    <div class="modal-header">
+        <h4 class="modal-title">Guardar cambios</h4>
+        <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+        <h6>{{mensaje_modal}}</h6>
+    </div>
+    <div class="modal-footer modal-confirm">
+        <!-- <a (click)="d()" class="btn btn-info" data-dismiss="modal">Cancelar</a> -->
+        <!-- <a (click)="c()" class="btn btn-verde">Guardar</a> -->
+        <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+        <button type="button" class="btn btn-info" (click)="c">Guardar</button>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+</ng-template>
+
+<ng-template #modalMessage let-c="close()" let-d="dismiss()">
+    <!-- <div class="modal fade "> -->
+    <!-- <div class="modal-content"> -->
+    <div class="modal-header">
+        <h4 class="modal-title">Mensaje de postulación:</h4>
+        <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h6>{{postMessage}}</h6>
+    </div>
+    <!-- clase modal-confirm está causando problemas -->
+    <div class="modal-footer">
+        <!-- modal-confirm <a (click)="d()" class="btn btn-info" data-dismiss="modal">Cancelar</a> -->
+        <!-- <a (click)="c()" class="btn btn-verde">Guardar</a> -->
+        <!-- <button type="button" class="btn btn-morado" (click)="d">Cancelar</button> -->
+        <button type="button" class="btn btn-info" (click)="c">Aceptar</button>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+</ng-template>
+
+<!-- Animación de cargando  -->
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

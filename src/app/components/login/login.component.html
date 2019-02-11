@@ -1,0 +1,49 @@
+<div class="container-fluid top d-flex justify-content-center align-items-center animated fadeInUp fast ">
+  <h2>Iniciar sesión</h2>
+</div>
+<section class="container-fluid animated fadeIn">
+  <div class="d-flex justify-content-center ">
+    <form (ngSubmit)="logIn()" #forma="ngForm" class="col-md-8">
+      <div class="form-group">
+        <label>Usuario</label>
+        <input [(ngModel)]="user.email" type="email" name="email" #email="ngModel" class="form-control" placeholder="Correo" required email>
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input [(ngModel)]="user.password" type="password" name="password" class="form-control" placeholder="Contraseña" required>
+        <div class="invalid-feedback d-block">
+          {{ errorMessage }}
+        </div>
+      </div>
+      <hr>
+
+      <div class="form-group ">
+        <button [disabled]="!forma.valid" class="btn btn-rojo btn-block" type="submit" name="button">
+        Iniciar sesión
+        </button>
+        <div class="divider"></div>
+        <button [routerLink]="['index']" class="btn btn-morado btn-block">
+        Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="text-center">
+      <!-- <label>¿Olvidó su contraseña?</label>
+    <button [disabled]="!forma.valid" class="btn btn-outline-info" (click)="resetPassword()" name="reset" >Recuperar contraseña</button> -->
+      <!-- <div class="text-center" *ngIf="forma.valid"> -->
+      <p>¿Olvidó su contraseña?</p>
+      <p>
+        <ng-container *ngIf="email.errors; else elseTemplate">
+          <p>Ingrese su correo para recuperar su contraseña</p>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <a href="#" (click)="resetPassword()">Recuperar contraseña</a>
+        </ng-template>
+      </p>
+      <!-- </div> -->
+      <p>¿Aún no tienes cuenta?</p>
+      <p> <a [routerLink]="['/register/student']">Registrarse como candidato</a></p>
+      <p> <a [routerLink]="['/register/employeer']">Registrarse como empresa</a></p>
+  </div>
+</section>

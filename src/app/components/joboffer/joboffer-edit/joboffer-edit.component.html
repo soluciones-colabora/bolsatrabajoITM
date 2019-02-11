@@ -1,0 +1,277 @@
+<ng-container *ngIf="(authService.user | async ) as user; else loading">
+  <ng-container *ngIf="joboffer$| async  as joboffer; else loading">
+    <ng-container *ngIf="success===undefined; else alert">
+      <form [formGroup]="formulario" (ngSubmit)="update(joboffer, modalGuardar)">
+        <h3>Datos del puesto</h3>
+        <div class="borde-tec p-b-4"></div>
+        <br>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="position">Puesto</label>
+            <input type="text" class="form-control" id="position" [readonly]="isreadonly" formControlName="position" value={{joboffer.position}}
+            [class.is-invalid]="!formulario.get('position').valid && formulario.get('position').dirty"
+            [class.is-valid]="formulario.get('position').valid && formulario.get('position').dirty">
+            <div class="invalid-feedback" *ngIf="!formulario.get('position').valid && formulario.get('position').dirty">
+              *Campo requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="">Descripción</label>
+            <textarea class="form-control" [readonly]="isreadonly" formControlName="description" aria-label="With textarea"
+            value={{joboffer.description}}></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label class="mr-sm-2" for="economicType">Tipo de remuneración económica</label>
+            <ng-container *ngIf="isreadonly; else selectEconomicType">
+              <input type="text" class="form-control" [readonly]="isreadonly" value={{joboffer.economicType}}>
+            </ng-container>
+            <ng-template #selectEconomicType>
+              <select class="custom-select select-tec mr-sm-2" formControlName="economicType" id="economicType">
+                  <option value="" selected disabled hidden>{{joboffer.economicType}}</option>
+                  <option value="Salario mensual">Salario mensual</option>
+                  <option value="Apoyo económico">Apoyo económico</option>
+              </select>
+            </ng-template>
+          </div>
+          <div class="form-group col-md-4">
+              <label for="economicAmount">Cantidad</label>
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input type="number" class="form-control" min="1000" max="99999" id="economicAmount" [readonly]="isreadonly" formControlName="economicAmount" value={{joboffer.economicAmount}}
+                  [class.is-invalid]="!formulario.get('economicAmount').valid && formulario.get('economicAmount').dirty"
+                  [class.is-valid]="formulario.get('economicAmount').valid && formulario.get('economicAmount').dirty">
+                  <div class="invalid-feedback" *ngIf="!formulario.get('economicAmount').valid && formulario.get('economicAmount').dirty">
+                    *Campo requerido
+                  </div>
+                  <!-- <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                  </div> -->
+                </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="weeklyHours">Horas a la semana</label>
+            <input type="number" class="form-control" min="10" max="48" id="weeklyHours" [readonly]="isreadonly" formControlName="weeklyHours" value={{joboffer.weeklyHours}}
+            [class.is-invalid]="!formulario.get('weeklyHours').valid && formulario.get('weeklyHours').dirty"
+            [class.is-valid]="formulario.get('weeklyHours').valid && formulario.get('weeklyHours').dirty">
+            <div class="invalid-feedback" *ngIf="!formulario.get('weeklyHours').valid && formulario.get('weeklyHours').dirty">
+              *Campo requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="experience">Años de experiencia</label>
+            <input type="number" class="form-control" min="0" max="10" id="experience" [readonly]="isreadonly" formControlName="experience" value={{joboffer.experience}}
+            [class.is-invalid]="!formulario.get('experience').valid && formulario.get('experience').dirty"
+            [class.is-valid]="formulario.get('experience').valid && formulario.get('experience').dirty">
+            <div class="invalid-feedback" *ngIf="!formulario.get('experience').valid && formulario.get('experience').dirty">
+              *Campo requerido
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+              <label for="vacantNumber">Número de vacantes</label>
+              <input type="number" class="form-control" min="1" max="10" id="vacantNumber" [readonly]="isreadonly" formControlName="vacantNumber" value={{joboffer.vacantNumber}}
+              [class.is-invalid]="!formulario.get('vacantNumber').valid && formulario.get('vacantNumber').dirty"
+              [class.is-valid]="formulario.get('vacantNumber').valid && formulario.get('vacantNumber').dirty">
+                        <div class="invalid-feedback" *ngIf="!formulario.get('vacantNumber').valid && formulario.get('vacantNumber').dirty">
+              *Campo requerido
+            </div>
+          </div>
+        </div>
+
+        <h4>Perfil deseado</h4>
+        <div class="borde-tec p-b-4"></div>
+        <br>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            Inglés(%)
+          </div>
+          <div class="form-group col-md-4">
+            <!-- <label for="">Hablado</label> -->
+            <input type="number" class="form-control" min="0" max="100" [readonly]="isreadonly" formControlName="spoken" value={{joboffer.languages.english.spoken}}
+            [class.is-invalid]="!formulario.get('spoken').valid && formulario.get('spoken').dirty"
+            [class.is-valid]="formulario.get('spoken').valid && formulario.get('spoken').dirty">
+            <div class="invalid-feedback" *ngIf="!formulario.get('spoken').valid && formulario.get('spoken').dirty">
+              *Campo requerido
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <!-- <label for="">Escrito</label> -->
+            <input type="number" class="form-control" min="0" max="100" [readonly]="isreadonly" formControlName="written" value={{joboffer.languages.english.written}}
+            [class.is-invalid]="!formulario.get('written').valid && formulario.get('written').dirty"
+            [class.is-valid]="formulario.get('written').valid && formulario.get('written').dirty && formulario.get('written').value">
+            <div class="invalid-feedback" *ngIf="!formulario.get('written').valid && formulario.get('written').dirty">
+              *Campo requerido
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <!-- <label for="">Traducción</label> -->
+            <input type="number" class="form-control" min="0" max="100" [readonly]="isreadonly" formControlName="translation" value={{joboffer.languages.english.translation}}
+            [class.is-invalid]="!formulario.get('translation').valid && formulario.get( 'translation').dirty"
+            [class.is-valid]="formulario.get('translation').valid && formulario.get('translation').dirty">
+            <div class="invalid-feedback" *ngIf="!formulario.get('translation').valid && formulario.get('translation').dirty">
+              *Campo requerido
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="isreadonly; else bachelorTemplate">
+          <div class="form-row">
+            <label class="mr-sm-2" for="carrera">Carrera(s) de egreso</label>
+            <div class="input-group">
+              <div formArrayName="bachelors">
+                <div class="container-fluid d-flex" *ngFor="let bachelor of joboffer.bachelors let i = index">
+                    <input type="text" class="form-control" [readonly]="isreadonly" [value]="texts.getBachelorFromValue(bachelor).shortName">
+                <br><br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #bachelorTemplate>
+          <div class="form-row">
+            <label class="mr-sm-2" for="carrera">Carrera(s) de egreso</label>
+            <div class="input-group">
+              <div formArrayName="bachelors">
+                <div class="container-fluid d-flex" *ngFor="let bachelor of formulario.controls['bachelors'].controls let i = index">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-danger" type="button" (click)="eliminarcarrera(i)" ngbTooltip="Eliminar licenciatura">
+                        <i class="icon icon-visualizar ion-ios-trash p-2"></i></button>
+                    </div>
+                    <select class="custom-select select-tec mr-sm-2" [formControlName]="i">
+                      <option value="" selected disabled hidden>Elige una opción...</option>
+                      <option [value]="bachelor.value" *ngFor="let bachelor of texts.bachelors">{{bachelor.name}}</option>
+                    </select>
+                  </div>
+                <br><br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-rojo" (click)="agregarcarrera()"><i class="icon icon-visualizar ion-ios-add p-2">
+              </i> Agregar carrera al perfil</button>
+            </div>
+          </div>
+          <br>
+        </ng-template>
+
+        <ng-container *ngIf="isreadonly; else aptitudeTemplate">
+          <div class="form-row">
+            <label class="mr-sm-2" for="carrera">Aptitudes</label>
+            <div class="input-group">
+              <div formArrayName="aptitudes">
+                <div class="container-fluid d-flex" *ngFor="let aptitude of joboffer.aptitudes let i = index">
+                    <input type="text" class="form-control" [readonly]="isreadonly" [value]="aptitude">
+                <br><br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #aptitudeTemplate>
+          <div class="form-row">
+            <label class="mr-sm-2" for="aptitud">Aptitudes</label>
+            <div class="input-group">
+              <div formArrayName="aptitudes">
+                <div class="container-fluid d-flex" *ngFor="let aptitud of formulario.controls['aptitudes'].controls let i = index">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-danger" type="button" id="button-addon1" (click)="eliminaraptitud(i)" ngbTooltip="Eliminar Aptitud">
+                        <i class="icon icon-visualizar ion-ios-trash p-2"></i>
+                      </button>
+                    </div>
+                    <!-- <input type="text" class="form-control" value="" aria-label="Example text with button addon" aria-describedby="button-addon1"> -->
+                    <input type="text" class="form-control" [formControlName]="i" value="Aptitud"
+                    [class.is-invalid]="!formulario.get('aptitudes').valid && formulario.get('aptitudes').dirty"
+                    [class.is-valid]="formulario.get('aptitudes').valid && formulario.get('weeklyHours').dirty">
+                    <div class="invalid-feedback" *ngIf="!formulario.get('aptitudes').valid && formulario.get('aptitudes').dirty">
+                      *Campo requerido
+                    </div>
+                  </div>
+                  <br><br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-rojo" (click)="agregaraptitud()">
+                <i class="icon icon-visualizar ion-ios-add p-2"> </i> Agregar aptitud al perfil
+              </button>
+            </div>
+          </div>
+          <br>
+        </ng-template>
+
+        <ng-container *ngIf="isreadonly; else submit">
+          <div class="form-row justify-content-md-center">
+            <div class="col-md-4">
+              <button type="button" class="text-center btn btn-rojo col-md-12" (click)="actualizar(joboffer)">Actualizar Información</button>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #submit>
+            <div class="form-row">
+                <div class="col-md-5 p-2">
+                    <button type="submit" [disabled]="!formulario.valid" class="text-center btn btn-rojo col-md-12">Actualizar</button>
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-5 p-2">
+                    <button type="button" class="text-center btn btn-morado col-md-12" (click)="actualizar(joboffer)">Cancelar</button>
+                </div>
+            </div>
+        </ng-template>
+      </form>
+    </ng-container>
+    <ng-template #alert>
+      <ng-container *ngIf="success; else failure">
+        <div class="animated fadeInUp fast">
+          <ngb-alert type="success" [dismissible]="false">¡Tu oferta ha sido registrada exitosamente!</ngb-alert>
+        </div>
+      </ng-container>
+      <ng-template #failure>
+        <div class="animated fadeInUp fast">
+          <ngb-alert type="danger" [dismissible]="false">¡Hubo un problema al registrar la oferta!</ngb-alert>
+        </div>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+</ng-container>
+
+
+<ng-template #modalGuardar let-c="close()" let-d="dismiss()">
+    <!-- <div class="modal fade"> -->
+    <!-- <div class="modal-content"> -->
+    <div class="modal-header">
+        <h4 class="modal-title">Guardar cambios</h4>
+        <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+        <h6>{{modalMessage}}</h6>
+    </div>
+    <div class="modal-footer">
+        <!-- <a (click)="d()" class="btn btn-info" data-dismiss="modal">Cancelar</a> -->
+        <!-- <a (click)="c()" class="btn btn-verde">Guardar</a> -->
+        <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+        <button type="button" class="btn btn-info" (click)="c">Guardar</button>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+</ng-template>
+
+<!-- Loading template -->
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,0 +1,296 @@
+
+<ng-container *ngIf="suspendedEnterprises$ | async as sEnterprises; else loading">
+  <ng-container *ngIf="inactiveEnterprises$ | async as iEnterprises; else loading">
+    <ng-container *ngIf="activeEnterprises$ | async as aEnterprises; else loading">
+      <h4>Empresas por aprobar</h4>
+      <div class="borde-tec p-b-4"></div>
+      <br>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <span><i class="icon ion-ios-search icon-x-small p-2"> </i></span>
+            <label for="search">Búsqueda</label>
+            <input type="text" id="search" class="form-control" placeholder="Ingresa tu búsqueda aquí" aria-label="Ingresa tu búsqueda aquí" aria-describedby="basic-addon1"
+            (keyup)="onSearch($event, 'Inactive', iEnterprises)">
+          </div>
+          <div class="form-group col-md-6" *ngIf="selectedInactive.length">
+            <label for="">Acciones para selección</label>
+            <div class="actions" style="margin-bottom: 0px;">
+                <button type="button" (click)="onAction(selectedInactive,'approveBatch', 'Inactive', ApproveEnterprisesBatch)" class="btn btn-success">
+                  <i class="icon ion-ios-checkmark-circle p-2"> </i> Aprobar empresas
+                </button>
+                <button type="button" (click)="onAction(selectedInactive,'deleteBatch', 'Inactive', DeleteEnterprisesBatch)" class="btn btn-danger">
+                  <i class="icon ion-ios-trash p-2"> </i> Eliminar empresas
+                </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Tabla que muestra a las empresas inactivas. -->
+      <ngx-datatable class="material" [rows]="inactiveEnterprises" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5"
+        [selected]="selectedInactive" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+        (select)="onSelect($event, 'Inactive')">
+        <ngx-datatable-column class="material" [width]="30" [sortable]="true" [canAutoResize]="false" [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Nombre Comercial" prop="comercialName"></ngx-datatable-column>
+        <ngx-datatable-column name="Correo" prop="email"></ngx-datatable-column>
+        <ngx-datatable-column name="Teléfono" prop="bussinessPhone"></ngx-datatable-column>
+        <ngx-datatable-column name="Acciones" prop="uid">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+            <div class="actions" *ngIf="!selectedInactive.length">
+                <button type="button" (click)="onAction(row, 'inspect', 'Inactive', InspectEnterprise)" ngbTooltip="Ver empresa" class="btn btn-info">
+                  <i class="icon ion-ios-eye p-2"> </i>
+                </button>
+                <button type="button" (click)="onAction(row,'approve', 'Inactive', ApproveEnterprise)" ngbTooltip="Aprobar empresa" class="btn btn-success">
+                  <i class="icon ion-ios-checkmark-circle p-2"> </i>
+                </button>
+                <button type="button" (click)="onAction(row,'delete', 'Inactive', DeleteEnterprise)" ngbTooltip="Eliminar empresa" class="btn btn-danger">
+                  <i class="icon ion-ios-trash p-2"> </i>
+                </button>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+
+      <!-- Aquí empieza la sección de las empresas activas. -->
+      <br><br>
+      <h4>Empresas aprobadas</h4>
+      <div class="borde-tec p-b-4"></div>
+      <br>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <span><i class="icon ion-ios-search icon-x-small p-2"> </i></span>
+            <label for="search">Búsqueda</label>
+            <input type="text" id="search" class="form-control" placeholder="Ingresa tu búsqueda aquí" aria-label="Ingresa tu búsqueda aquí" aria-describedby="basic-addon1"
+            (keyup)="onSearch($event, 'Active', aEnterprises)">
+          </div>
+          <div class="form-group col-md-6" *ngIf="selectedActive.length">
+            <label for="">Acciones para selección</label>
+            <div class="actions" style="margin-bottom: 0px;">
+                <button type="button" (click)="onAction(selectedActive,'deleteBatch', 'Active', DeleteEnterprisesBatch)" class="btn btn-danger">
+                  <i class="icon ion-ios-trash p-2"> </i> Eliminar empresas
+                </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <ngx-datatable class="material" [rows]="activeEnterprises" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5"
+        [selected]="selectedActive" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+        (select)="onSelect($event, 'Active')">
+        <ngx-datatable-column class="material" [width]="30" [sortable]="true" [canAutoResize]="false" [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Nombre Comercial" prop="comercialName"></ngx-datatable-column>
+        <ngx-datatable-column name="Correo" prop="email"></ngx-datatable-column>
+        <ngx-datatable-column name="Teléfono" prop="bussinessPhone"></ngx-datatable-column>
+        <ngx-datatable-column name="Acciones" prop="uid">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+            <div class="actions" *ngIf="!selectedActive.length">
+              <button type="button" (click)="onAction(row, 'inspect', 'Active', InspectEnterprise)" ngbTooltip="Ver empresa" class="btn btn-info">
+                <i class="icon ion-ios-eye p-2"> </i>
+              </button>
+              <button type="button" (click)="onAction(row, 'suspend', 'Active', SuspendEnterprise)" ngbTooltip="Suspender empresa" class="btn btn-warning">
+                <i class="icon ion-ios-alert p-2"> </i>
+              </button>
+              <button type="button" (click)="onAction(row, 'delete', 'Active', DeleteEnterprise)" ngbTooltip="Eliminar empresa" class="btn btn-danger">
+                <i class="icon ion-ios-trash p-2"> </i>
+              </button>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+      <br>
+
+
+      <!-- Aquí empieza la sección de las empresas suspendidas. -->
+      <br><br>
+      <h4>Empresas Suspendidas</h4>
+      <div class="borde-tec p-b-4"></div>
+      <br>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <span><i class="icon ion-ios-search icon-x-small p-2"> </i></span>
+            <label for="search">Búsqueda</label>
+            <input type="text" id="search" class="form-control" placeholder="Ingresa tu búsqueda aquí" aria-label="Ingresa tu búsqueda aquí" aria-describedby="basic-addon1"
+            (keyup)="onSearch($event, 'Suspended', sEnterprises)">
+          </div>
+          <div class="form-group col-md-6" *ngIf="selectedSuspended.length">
+            <label for="">Acciones para selección</label>
+            <div class="actions" style="margin-bottom: 0px;">
+                <button type="button" (click)="onAction(selectedSuspended,'activateBatch', 'Suspended', ActivateEnterprisesBatch)" class="btn btn-success">
+                  <i class="icon ion-ios-checkmark-circle p-2"> </i> Activar empresas
+                </button>
+                <button type="button" (click)="onAction(selectedSuspended,'deleteBatch', 'Suspended', DeleteEnterprisesBatch)" class="btn btn-danger">
+                  <i class="icon ion-ios-trash p-2"> </i> Eliminar empresas
+                </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <ngx-datatable class="material" [rows]="suspendedEnterprises" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5"
+        [selected]="selectedSuspended" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+        (select)="onSelect($event, 'Suspended')">
+        <ngx-datatable-column class="material" [width]="30" [sortable]="true" [canAutoResize]="false" [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Nombre Comercial" prop="comercialName"></ngx-datatable-column>
+        <ngx-datatable-column name="Correo" prop="email"></ngx-datatable-column>
+        <ngx-datatable-column name="Teléfono" prop="bussinessPhone"></ngx-datatable-column>
+        <ngx-datatable-column name="Acciones" prop="uid">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+            <div class="actions" *ngIf="!selectedSuspended.length">
+              <button type="button" (click)="onAction(row, 'inspect', 'Suspended', InspectEnterprise)" ngbTooltip="Ver empresa" class="btn btn-info">
+                <i class="icon ion-ios-eye p-2"> </i>
+              </button>
+              <button type="button" (click)="onAction(row, 'activate', 'Suspended', ActivateEnterprise)" ngbTooltip="Activar empresa" class="btn btn-success">
+                <i class="icon ion-ios-alert p-2"> </i>
+              </button>
+              <button type="button" (click)="onAction(row, 'delete', 'Suspended', DeleteEnterprise)" ngbTooltip="Eliminar empresa" class="btn btn-danger">
+                <i class="icon ion-ios-trash p-2"> </i>
+              </button>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+      <br>
+
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
+
+<ng-template #InspectEnterprise let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Vista previa empresa</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <h3>Datos de la empresa</h3>
+    <p><strong>Nombre comercial:</strong> {{enterprisePreview.comercialName}}</p>
+    <p><strong>Giro de la empresa:</strong> {{enterprisePreview.bussinessTurn}}</p>
+    <p><strong>Descripción:</strong> {{enterprisePreview.description}}</p>
+    <p><strong>Sitio web:</strong> {{enterprisePreview.webURL}}</p>
+    <p><strong>RFC:</strong> {{enterprisePreview.RFC}}</p>
+
+    <h3>Datos del contacto</h3>
+    <p><strong>Nombre:</strong> {{enterprisePreview.firstName}} {{enterprisePreview.middleName}} {{enterprisePreview.lastName}}</p>
+    <p><strong>Puesto:</strong> {{enterprisePreview.job}}</p>
+    <p><strong>Departamento:</strong> {{enterprisePreview.department}}</p>
+    <p><strong>Correo:</strong> {{enterprisePreview.email}}</p>
+    <p><strong>Teléfono:</strong> {{enterprisePreview.contactPhone}}</p>
+    <p><strong>Dirección:</strong> {{enterprisePreview.contactAddress}}</p>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info btn-block" (click)="d">Ok</button>
+  </div>
+</ng-template>
+
+<ng-template #ApproveEnterprise let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Aprobar empresa</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>¿Deseas aprobar la solicitud de este empresa?</p>
+    <p>Esta acción dará acceso a la empresa "{{enterprisePreview.comercialName}}" a la página</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="c">Aprobar</button>
+  </div>
+</ng-template>
+
+<ng-template #ActivateEnterprise let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Activar empresa</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>¿Deseas reactivar esta empresa?</p>
+    <p>Esta acción le volverá a dar acceso a la empresa "{{enterprisePreview.comercialName}}" a la página</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="c">Activar</button>
+  </div>
+</ng-template>
+
+<ng-template #SuspendEnterprise let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Suspender empresa</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>¿Deseas suspender a esta empresa?</p>
+    <p>Esta acción bloqueará el acceso de la empresa "{{enterprisePreview.comercialName}}" a la página</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-warning" (click)="c">Suspender</button>
+  </div>
+</ng-template>
+
+<ng-template #DeleteEnterprise let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Eliminar empresa</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>¿Deseas elimnar la solicitud de este empresa?</p>
+    Esta acción elimnará la cuenta de la empresa "{{enterprisePreview.comercialName}}", así cómo todos sus datos.
+  </div>
+  <div class="modal-footer modal-confirm">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="c">Eliminar</button>
+  </div>
+</ng-template>
+
+<ng-template #ActivateEnterprisesBatch let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Activar empresas</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>¿Deseas reactivar las empresas seleccionadas?</p>
+    <p>Esta acción le volverá a dar acceso a todas los empresas seleccionados a la página</p>
+  </div>
+  <div class="modal-footer modal-confirm">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="c">Activar</button>
+  </div>
+</ng-template>
+
+<ng-template #ApproveEnterprisesBatch let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Aprobar empresas</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>¿Deseas aprobar las solicitudes seleccionadas?</p>
+    <p>Esta acción dará acceso a todos los empresas seleccionados a la página</p>
+  </div>
+  <div class="modal-footer modal-confirm">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="c">Aprobar</button>
+  </div>
+</ng-template>
+
+<ng-template #DeleteEnterprisesBatch let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Eliminar empresas</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>¿Deseas eliminar las solicitudes de los empresas selecionados?</p>
+    Esta acción eliminará la cuenta de todos los empresas seleccionados, así cómo todos sus datos
+  </div>
+  <div class="modal-footer modal-confirm">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="c">Eliminar</button>
+  </div>
+</ng-template>

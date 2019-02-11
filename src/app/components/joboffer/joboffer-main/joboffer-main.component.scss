@@ -1,0 +1,66 @@
+@import '../../../../styles.scss';
+.card {
+    background-color: #fefefe;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+
+/* Centre and crop an image with a fixed height */
+
+.crop {
+    position: relative;
+    /* provide a positioning context */
+    overflow: hidden;
+    height: 200px;
+    /* make space */
+}
+
+.crop img {
+    position: absolute;
+    left: -100%;
+    /* anchor the image corners outside the viewable area (increase for large images) */
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+    width: auto;
+    /* dynamic width based on viewable area */
+    height: 200px;
+    /* set height (swap these for variable height) */
+    margin: auto;
+    /* centre the image */
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #003C00;
+    background-color: #D8EBEB;
+    border: 1px solid #346767;
+}
+
+.page-item.disabled .page-link {
+    color: #868e96;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #CEFFCE;
+    border-color: #718393;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #003C00;
+    border-color: #AEFF5E;
+}
+
+.page-link:focus,
+.page-link:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #003C00;
+    border-color: #AEFF5E;
+}

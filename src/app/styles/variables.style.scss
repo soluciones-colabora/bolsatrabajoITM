@@ -1,0 +1,33 @@
+$red-tec: #7E0827;
+$amarillo-tec:#D19800;
+$rojo: #4A5C81;
+$rojo-accent: #223865;
+$amarillo: #D9AA2E;
+$amarillo-accent: #D19800;
+$verde: #C2C68B;
+$verde-accent: #B5BA72;
+$cafe: #7E7667;
+$cafe-accent: #625C50;
+$morado: #ACA3B2;
+$morado-accent: #7D6F86;
+$verde-succes: #9EE493;
+$verde-succes2: #82ce34;
+$danger: #d9534f;
+$ligth: #f9f9f9;
+$info: #5bc0de;
+$success: #5cb85c;
+$primary: #428bca;
+$size-vars: ( "x-small": .5, "small": .7, "medium": .9, "large": 1.1, "big": 1.3, "huge": 1.5);
+@each $size,
+$font-size in $size-vars {
+    .font-#{$size} {
+        font-size: $font-size * 1rem;
+    }
+    .icon-#{$size} {
+        font-size: $font-size * 3rem;
+    }
+}
+
+.icon-modal {
+    font-size: 12rem;
+}

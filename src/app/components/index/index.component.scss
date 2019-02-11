@@ -1,0 +1,13 @@
+@import '../../../styles.scss';
+.jumbotron {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color: #AEB6C7;
+}
+
+.bd-img {
+    // background-image: url("paper.gif");
+    color: $rojo-accent!important;
+}

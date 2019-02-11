@@ -1,0 +1,296 @@
+<ng-container *ngIf="enterprise$ | async as enterprise; else loading">
+  <form [formGroup]="formulario" (ngSubmit)="update(enterprise, registerModal)" class="animated fadeIn">
+    <h1>Perfil de la empresa</h1>
+    <h4>Datos del contacto</h4>
+    <div class="borde-tec p-b-4"></div>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="firstName">Nombre(s)</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="firstName" formControlName="firstName" value={{enterprise.firstName}}
+        [class.is-invalid]="!formulario.get('firstName').valid && formulario.get('firstName').dirty"
+        [class.is-valid]="formulario.get('firstName').valid && formulario.get('firstName').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('firstName').valid && formulario.get('firstName').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="middleName">Apellido paterno</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="lastName" formControlName="lastName" value={{enterprise.lastName}}
+        [class.is-invalid]="!formulario.get('lastName').valid && formulario.get('lastName').dirty"
+        [class.is-valid]="formulario.get('lastName').valid && formulario.get('lastName').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('lastName').valid && formulario.get('lastName').dirty">
+            *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="lastName">Apellido materno</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="middleName" formControlName="middleName" value={{enterprise.middleName}}
+        [class.is-invalid]="!formulario.get('middleName').valid && formulario.get('middleName').dirty"
+        [class.is-valid]="formulario.get('middleName').valid && formulario.get('middleName').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('middleName').valid && formulario.get('middleName').dirty">
+          *Campo requerido
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="job">Puesto</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="job" formControlName="job" value={{enterprise.job}}
+        [class.is-invalid]="!formulario.get('job').valid && formulario.get('job').dirty"
+        [class.is-valid]="formulario.get('job').valid && formulario.get('job').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('job').valid && formulario.get('job').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="department">Departamento</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="department" formControlName="department" value={{enterprise.department}}
+        [class.is-invalid]="!formulario.get('department').valid && formulario.get('department').dirty"
+        [class.is-valid]="formulario.get('department').valid && formulario.get('department').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('department').valid && formulario.get('department').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="contactPhone">Telefono de contacto</label>
+        <input type="number" class="form-control" [readonly]="isreadonly" formControlName="contactPhone" value={{enterprise.contactPhone}}
+        [class.is-invalid]="!formulario.get('contactPhone').valid && formulario.get('contactPhone').dirty"
+        [class.is-valid]="formulario.get('contactPhone').valid && formulario.get('contactPhone').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get('contactPhone').hasError('required') && formulario.get('contactPhone').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get('contactPhone').hasError('pattern') && formulario.get('contactPhone').dirty">
+          *Verifica que el teléfono esté bien escrito
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="contactAddress">Dirección del contacto</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="contactAddress" value={{enterprise.contactAddress}}
+        [class.is-invalid]="!formulario.get('contactAddress').valid && formulario.get('contactAddress').dirty"
+        [class.is-valid]="formulario.get('contactAddress').valid && formulario.get('contactAddress').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('contactAddress').valid && formulario.get('contactAddress').dirty">
+          *Campo requerido
+        </div>
+      </div>
+    </div>
+
+    <h4>Datos de la empresa </h4>
+    <div class="borde-tec p-b-4"></div>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="comercialName">Nombre comercial</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="comercialName" value={{enterprise.comercialName}}
+        [class.is-invalid]="!formulario.get('comercialName').valid && formulario.get('comercialName').dirty"
+        [class.is-valid]="formulario.get('comercialName').valid && formulario.get('comercialName').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get('comercialName').hasError('required') && formulario.get('comercialName').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-12">
+        <label for="bussinessName">Razón social</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="bussinessName" formControlName="bussinessName" value={{enterprise.bussinessName}}
+        [class.is-invalid]="!formulario.get('bussinessName').valid && formulario.get('bussinessName').dirty"
+        [class.is-valid]="formulario.get('bussinessName').valid && formulario.get('bussinessName').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get('bussinessName').hasError('required') && formulario.get('bussinessName').dirty">
+          *Campo requerido
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="RFC">RFC</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="RFC" formControlName="RFC" value={{enterprise.RFC}}
+        [class.is-invalid]="!formulario.get('RFC').valid && formulario.get('RFC').dirty"
+        [class.is-valid]="formulario.get('RFC').valid && formulario.get('RFC').dirty"
+            maxlength="13">
+        <div class="invalid-feedback" *ngIf="formulario.get('RFC').hasError('required') && formulario.get('RFC').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get('RFC').hasError('pattern') && formulario.get('RFC').dirty">
+          *Verifica que el RFC esté bien escrito
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get('RFC').hasError('maxlength') && formulario.get('RFC').dirty">
+          *El RFC tiene más caracteres de los permitidos
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="bussinessPhone">Teléfono de la empresa</label>
+        <input type="number" class="form-control" [readonly]="isreadonly" id="bussinessPhone" formControlName="bussinessPhone" value={{enterprise.bussinessPhone}}
+        [class.is-invalid]="!formulario.get('bussinessPhone').valid && formulario.get('bussinessPhone').dirty"
+        [class.is-valid]="formulario.get('bussinessPhone').valid && formulario.get('bussinessPhone').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get('bussinessPhone').hasError('required') && formulario.get('bussinessPhone').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get('bussinessPhone').hasError('pattern') && formulario.get('bussinessPhone').dirty">
+          *Verifica que el teléfono esté bien escrito
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="webURL">Sitio web</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="webURL" formControlName="webURL" value={{enterprise.webURL}}
+        [class.is-invalid]="!formulario.get('webURL').valid && formulario.get('webURL').dirty"
+        [class.is-valid]="formulario.get('webURL').valid && formulario.get('webURL').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('webURL').valid && formulario.get('webURL').dirty">
+            *Verifica que la página web está escrita correctamente
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="mainStreet">Calle principal y número</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="mainStreet" value={{enterprise.address.mainStreet}}
+        [class.is-invalid]="!formulario.get('mainStreet').valid && formulario.get('mainStreet').dirty"
+        [class.is-valid]="formulario.get('mainStreet').valid && formulario.get('mainStreet').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('mainStreet').valid && formulario.get('mainStreet').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="crossings">Cruzamientos</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" formControlName="crossings" value={{enterprise.address.crossings}}
+        [class.is-invalid]="!formulario.get('crossings').valid && formulario.get('crossings').dirty"
+        [class.is-valid]="formulario.get('crossings').valid && formulario.get('crossings').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('crossings').valid && formulario.get('crossings').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="postalCode">Código Postal</label>
+        <input type="number" class="form-control" [readonly]="isreadonly" formControlName="postalCode" value={{enterprise.address.postalCode}}
+        [class.is-invalid]="!formulario.get('postalCode').valid && formulario.get('postalCode').dirty"
+        [class.is-valid]="formulario.get('postalCode').valid && formulario.get('postalCode').dirty">
+        <div class="invalid-feedback" *ngIf="formulario.get('postalCode').hasError('required') && formulario.get('postalCode').dirty">
+          *Campo requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="formulario.get('postalCode').hasError('pattern') && formulario.get('postalCode').dirty">
+          *Verifica que el código postal está bien escrito
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="city">Ciudad</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="city" formControlName="city" value={{enterprise.address.city}}
+        [class.is-invalid]="!formulario.get('city').valid && formulario.get('city').dirty"
+        [class.is-valid]="formulario.get('city').valid && formulario.get('city').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('city').valid && formulario.get('city').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="municipality">Municipio</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="municipality" formControlName="municipality" value={{enterprise.address.municipality}}
+        [class.is-invalid]="!formulario.get('municipality').valid && formulario.get('municipality').dirty"
+        [class.is-valid]="formulario.get('municipality').valid && formulario.get('municipality').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('municipality').valid && formulario.get('municipality').dirty">
+          *Campo requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="state">Estado</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="state" formControlName="state" value={{enterprise.address.state}}
+        [class.is-invalid]="!formulario.get('state').valid && formulario.get('state').dirty"
+        [class.is-valid]="formulario.get('state').valid && formulario.get('state').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('state').valid && formulario.get('state').dirty">
+          *Campo requerido
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="description">Descripción</label>
+        <textarea class="form-control" [readonly]="isreadonly" formControlName="description" value={{enterprise.description}}
+        [class.is-invalid]="!formulario.get('description').valid && formulario.get('description').dirty"
+        [class.is-valid]="formulario.get('description').valid && formulario.get('description').dirty"></textarea>
+        <div class="invalid-feedback" *ngIf="!formulario.get('description').valid && formulario.get('description').dirty">
+          *Campo requerido
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="bussinessTurn">Giro del negocio</label>
+        <input type="text" class="form-control" [readonly]="isreadonly" id="bussinessTurn" formControlName="bussinessTurn" value={{enterprise.bussinessTurn}}
+        [class.is-invalid]="!formulario.get('bussinessTurn').valid && formulario.get('bussinessTurn').dirty"
+        [class.is-valid]="formulario.get('bussinessTurn').valid && formulario.get('bussinessTurn').dirty">
+        <div class="invalid-feedback" *ngIf="!formulario.get('bussinessTurn').valid && formulario.get('bussinessTurn').dirty">
+          *Campo requerido
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <h4 for="logo">Logotipo</h4>
+        <div class="borde-tec p-b-4"></div>
+        <br>
+        <ng-container *ngIf="!isreadonly; else showLogo">
+          <div class="custom-file">
+            <input type="file" accept="image/*" class="custom-file-input" (change)="onFileChange($event.target.files)">
+            <ng-container *ngIf="file; else noFile">
+              <label class="custom-file-label" for="customFile">{{file.name}}</label>
+            </ng-container>
+            <ng-template #noFile>
+              <label class="custom-file-label" for="customFile"><i class="fa fa-upload"></i> Elija el logotipo</label>
+            </ng-template>
+          </div>
+          <div *ngIf="fileError.unsupported">
+            *Seleccione una imagen por favor
+          </div>
+          <div *ngIf="fileError.size">
+            *El tamaño de la imagen debe ser menor a 1mb.
+          </div>
+        </ng-container>
+        <ng-template #showLogo>
+          <div class="d-flex justify-content-center">
+            <img [src]="enterprise.logo" class="img-fluid" style="height: auto;" alt="Responsive image">
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <ng-container *ngIf="isreadonly; else submit">
+      <div class="form-row justify-content-md-center">
+        <div class="col-md-4">
+          <button type="button" class="text-center btn btn-rojo col-md-12" (click)="actualizar(enterprise)">Editar Información</button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #submit>
+      <div class="form-row">
+        <div class="col-md-5 p-2">
+          <button type="submit" [disabled]="!formulario.valid" class="text-center btn btn-rojo col-md-12">Actualizar</button>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-5 p-2">
+          <button type="button" class="text-center btn btn-morado col-md-12" (click)="actualizar(enterprise)">Cancelar</button>
+        </div>
+      </div>
+    </ng-template>
+  </form>
+</ng-container>
+
+<!-- Modal para guardar los cambios -->
+<ng-template #registerModal let-c="close()" let-d="dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Guardar cambios</h4>
+    <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <h6>{{modalMessage}}</h6>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+    <button type="button" class="btn btn-info" (click)="c">Guardar</button>
+  </div>
+</ng-template>
+
+<!-- Loading template -->
+<ng-template #loading>
+    <app-loader></app-loader>
+</ng-template>

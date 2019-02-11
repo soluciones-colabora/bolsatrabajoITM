@@ -1,0 +1,333 @@
+<form [formGroup]="formulario" (ngSubmit)="register(registerModal)">
+  <h1>Perfil de la empresa</h1>
+  <h4>Datos del contacto</h4>
+  <div class="borde-tec p-b-4"></div>
+  <br>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="email">Correo electrónico</label>
+      <input type="email" class="form-control student" id="email" formControlName="email" placeholder="Correo"
+      [class.is-invalid]="!formulario.get('email').valid && formulario.get('email').dirty"
+      [class.is-valid]="formulario.get('email').valid">
+      <div class="invalid-feedback" *ngIf="formulario.get('email').hasError('required') && formulario.get('email').dirty">
+        *Campo requerido
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('email').hasError('email') && formulario.get('email').dirty">
+        *Verifica que el correo electrónico esté bien escrito
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('email').hasError('emailAvailable') && formulario.get('email').dirty">
+        *El correo electrónico ya está registrado.
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="password">Contraseña</label>
+      <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña"
+      [class.is-invalid]="!formulario.get('password').valid && formulario.get('password').dirty"
+      [class.is-valid]="formulario.get('password').valid">
+      <div class="invalid-feedback" *ngIf="formulario.get('password').hasError('required') && formulario.get('password').dirty">
+          *Campo requerido
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('password').hasError('pattern') && formulario.get('password').dirty">
+          *Tu contraseña no es segura
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="email_confirm">Confirma tu correo electrónico</label>
+      <input type="email" class="form-control student" id="email_confirm" formControlName="email_confirm" placeholder="Confirmar Correo"
+      [class.is-invalid]="(formulario.hasError('matchEmail') || !formulario.get('email_confirm').valid) && formulario.get('email_confirm').dirty"
+      [class.is-valid]="formulario.get('email_confirm').valid && !formulario.hasError('matchEmail')">
+      <div class="invalid-feedback" *ngIf="formulario.get('email_confirm').hasError('required') && formulario.get('email_confirm').dirty">
+        *Campo requerido
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.hasError('matchEmail')">
+        *Los campos de correo electrónico no coinciden
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="password_confirm">Repetir contraseña</label>
+      <input type="password" class="form-control" id="password_confirm" formControlName="password_confirm" placeholder="Repetir Contraseña"
+      [class.is-invalid]="(formulario.hasError('matchPassword') || !formulario.get('password_confirm').valid) && formulario.get('password_confirm').dirty"
+      [class.is-valid]="formulario.get('password_confirm').valid && !formulario.hasError('matchPassword')">
+      <div class="invalid-feedback" *ngIf="formulario.get('password_confirm').hasError('required') && formulario.get('password_confirm').dirty">
+        *Campo requerido
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.hasError('matchPassword')">
+        *Los campos de contraseña no coinciden
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="firstName">Nombre(s)</label>
+      <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Nombre(s)"
+      [class.is-invalid]="!formulario.get('firstName').valid && formulario.get('firstName').dirty"
+      [class.is-valid]="formulario.get('firstName').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('firstName').valid && formulario.get('firstName').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="middleName">Apellido paterno</label>
+      <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Apellido paterno"
+      [class.is-invalid]="!formulario.get('lastName').valid && formulario.get('lastName').dirty"
+      [class.is-valid]="formulario.get('lastName').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('lastName').valid && formulario.get('lastName').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="lastName">Apellido materno</label>
+      <input type="text" class="form-control" id="middleName" formControlName="middleName" placeholder="Apellido materno"
+      [class.is-invalid]="!formulario.get('middleName').valid && formulario.get('middleName').dirty"
+      [class.is-valid]="formulario.get('middleName').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('middleName').valid && formulario.get('middleName').dirty">
+          *Campo requerido
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="job">Puesto</label>
+      <input type="text" class="form-control" id="job" formControlName="job" placeholder="Puesto"
+      [class.is-invalid]="!formulario.get('job').valid && formulario.get('job').dirty"
+      [class.is-valid]="formulario.get('job').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('job').valid && formulario.get('job').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="department">Departamento</label>
+      <input type="text" class="form-control" id="department" formControlName="department" placeholder="Departamento"
+      [class.is-invalid]="!formulario.get('department').valid && formulario.get('department').dirty"
+      [class.is-valid]="formulario.get('department').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('department').valid && formulario.get('department').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="contactPhone">Teléfono de contacto</label>
+      <input type="number" class="form-control" formControlName="contactPhone" placeholder="Teléfono"
+      [class.is-invalid]="!formulario.get('contactPhone').valid && formulario.get('contactPhone').dirty"
+      [class.is-valid]="formulario.get('contactPhone').valid">
+      <div class="invalid-feedback" *ngIf="formulario.get('contactPhone').hasError('required') && formulario.get('contactPhone').dirty">
+          *Campo requerido
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('contactPhone').hasError('pattern') && formulario.get('contactPhone').dirty">
+          *Verifica que el teléfono esté bien escrito
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('contactPhone').hasError('max') && formulario.get('contactPhone').dirty">
+          *El teléfono tiene más caracteres de los permitidos
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="contactAddress">Dirección del contacto</label>
+      <input type="text" class="form-control" formControlName="contactAddress" placeholder="Dirección"
+      [class.is-invalid]="!formulario.get('contactAddress').valid && formulario.get('contactAddress').dirty"
+      [class.is-valid]="formulario.get('contactAddress').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('contactAddress').valid && formulario.get('contactAddress').dirty">
+          *Campo requerido
+      </div>
+    </div>
+  </div>
+
+  <h4>Datos de la empresa </h4>
+  <div class="borde-tec p-b-4"></div>
+  <br>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="comercialName">Nombre comercial</label>
+      <input type="text" class="form-control" formControlName="comercialName" placeholder="Nombre comercial"
+      [class.is-invalid]="!formulario.get('comercialName').valid && formulario.get('comercialName').dirty"
+      [class.is-valid]="formulario.get('comercialName').valid">
+      <div class="invalid-feedback" *ngIf="formulario.get('comercialName').hasError('required') && formulario.get('comercialName').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="bussinessName">Razón social</label>
+      <input type="text" class="form-control" id="bussinessName" formControlName="bussinessName" placeholder="Razón social"
+      [class.is-invalid]="!formulario.get('bussinessName').valid && formulario.get('bussinessName').dirty"
+      [class.is-valid]="formulario.get('bussinessName').valid">
+      <div class="invalid-feedback" *ngIf="formulario.get('bussinessName').hasError('required') && formulario.get('bussinessName').dirty">
+          *Campo requerido
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="RFC">RFC</label>
+      <input type="text" class="form-control" id="RFC" formControlName="RFC" placeholder="RFC"
+      [class.is-invalid]="!formulario.get('RFC').valid && formulario.get('RFC').dirty"
+      [class.is-valid]="formulario.get('RFC').valid" maxlength="13">
+      <div class="invalid-feedback" *ngIf="formulario.get('RFC').hasError('required') && formulario.get('RFC').dirty">
+          *Campo requerido
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('RFC').hasError('pattern') && formulario.get('RFC').dirty">
+          *Verifica que el RFC esté bien escrito
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('RFC').hasError('maxlength') && formulario.get('RFC').dirty">
+          *El RFC tiene más caracteres de los permitidos
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="bussinessPhone">Teléfono de la empresa</label>
+      <input type="number" class="form-control" id="bussinessPhone" formControlName="bussinessPhone" placeholder="Teléfono"
+      [class.is-invalid]="!formulario.get('bussinessPhone').valid && formulario.get('bussinessPhone').dirty"
+      [class.is-valid]="formulario.get('bussinessPhone').valid">
+      <div class="invalid-feedback" *ngIf="formulario.get('bussinessPhone').hasError('required') && formulario.get('bussinessPhone').dirty">
+          *Campo requerido
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('bussinessPhone').hasError('pattern') && formulario.get('bussinessPhone').dirty">
+          *Verifica que el teléfono esté bien escrito
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('bussinessPhone').hasError('max') && formulario.get('bussinessPhone').dirty">
+          *El teléfono tiene más caracteres de los permitidos
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="webURL">Sitio web</label>
+      <input type="text" class="form-control" id="webURL" formControlName="webURL" placeholder="Sitio web"
+      [class.is-invalid]="!formulario.get('webURL').valid && formulario.get('webURL').dirty"
+      [class.is-valid]="formulario.get('webURL').valid && formulario.get('webURL').dirty">
+      <div class="invalid-feedback" *ngIf="!formulario.get('webURL').valid && formulario.get('webURL').dirty">
+          *Verifica que la página web está escrita correctamente
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="mainStreet">Calle principal y número</label>
+      <input type="text" class="form-control" formControlName="mainStreet" placeholder="Calle principal y número"
+      [class.is-invalid]="!formulario.get('mainStreet').valid && formulario.get('mainStreet').dirty"
+      [class.is-valid]="formulario.get('mainStreet').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('mainStreet').valid && formulario.get('mainStreet').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="crossings">Cruzamientos</label>
+      <input type="text" class="form-control" formControlName="crossings" placeholder="Cruzamientos"
+      [class.is-invalid]="!formulario.get('crossings').valid && formulario.get('crossings').dirty"
+      [class.is-valid]="formulario.get('crossings').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('crossings').valid && formulario.get('crossings').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="postalCode">Código Postal</label>
+      <input type="number" class="form-control" formControlName="postalCode" placeholder="Código Postal"
+      [class.is-invalid]="!formulario.get('postalCode').valid && formulario.get('postalCode').dirty"
+      [class.is-valid]="formulario.get('postalCode').valid">
+      <div class="invalid-feedback" *ngIf="formulario.get('postalCode').hasError('required') && formulario.get('postalCode').dirty">
+          *Campo requerido
+      </div>
+      <div class="invalid-feedback" *ngIf="formulario.get('postalCode').hasError('pattern') && formulario.get('postalCode').dirty">
+          *Verifica que el código postal está bien escrito
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="city">Ciudad</label>
+      <input type="text" class="form-control" id="city" formControlName="city" placeholder="Ciudad"
+      [class.is-invalid]="!formulario.get('city').valid && formulario.get('city').dirty"
+      [class.is-valid]="formulario.get('city').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('city').valid && formulario.get('city').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="municipality">Municipio</label>
+      <input type="text" class="form-control" id="municipality" formControlName="municipality" placeholder="Municipio"
+      [class.is-invalid]="!formulario.get('municipality').valid && formulario.get('municipality').dirty"
+      [class.is-valid]="formulario.get('municipality').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('municipality').valid && formulario.get('municipality').dirty">
+          *Campo requerido
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="state">Estado</label>
+      <input type="text" class="form-control" id="state" formControlName="state" placeholder="Estado"
+      [class.is-invalid]="!formulario.get('state').valid && formulario.get('state').dirty"
+      [class.is-valid]="formulario.get('state').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('state').valid && formulario.get('state').dirty">
+          *Campo requerido
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="description">Descripción</label>
+      <textarea class="form-control" formControlName="description"
+      [class.is-valid]="formulario.get('description').valid" placeholder="Breve descripción de la empresa."
+      [class.is-invalid]="!formulario.get('description').valid && formulario.get('bussinessTurn').dirty"></textarea>
+      <div class="invalid-feedback" *ngIf="!formulario.get('description').valid && formulario.get('description').dirty">
+          *Campo requerido
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="bussinessTurn">Giro del negocio</label>
+      <input type="text" class="form-control" id="bussinessTurn" formControlName="bussinessTurn" placeholder="Giro del negocio"
+      [class.is-invalid]="!formulario.get('bussinessTurn').valid && formulario.get('bussinessTurn').dirty"
+      [class.is-valid]="formulario.get('bussinessTurn').valid">
+      <div class="invalid-feedback" *ngIf="!formulario.get('bussinessTurn').valid && formulario.get('bussinessTurn').dirty">
+          *Campo requerido
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="logo">Logotipo</label>
+      <div class="custom-file">
+        <input type="file" accept="image/*" class="custom-file-input" formControlName="logo" (change)="onFileChange($event.target.files)">
+        <ng-container *ngIf="file; else noFile">
+          <label class="custom-file-label" for="customFile">{{file.name}}</label>
+        </ng-container>
+        <ng-template #noFile>
+          <label class="custom-file-label" for="customFile"><i class="fa fa-upload"></i> Elija el logotipo</label>
+        </ng-template>
+      </div>
+      <!-- class="invalid-feedback" -->
+      <div *ngIf="fileError.unsupported">
+        *Seleccione una imagen por favor
+      </div>
+      <div *ngIf="fileError.size">
+        *El tamaño de la imagen debe ser menor a 1mb.
+      </div>
+    </div>
+  </div>
+
+  <!-- <hr> -->
+  <div class="form-row">
+    <div class="col-md-5 p-2">
+      <!-- <button type="submit" class="text-center btn btn-rojo col-md-12">Registrar</button> -->
+      <button type="submit" [disabled]="!formulario.valid || !file" class="text-center btn btn-rojo col-md-12">Registrar</button>
+    </div>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-5 p-2">
+      <button type="button" class="text-center btn btn-morado col-md-12" (click)="resetForm()">Cancelar</button>
+    </div>
+  </div>
+
+</form>
+
+<!-- Modal para guardar los cambios -->
+<ng-template #registerModal let-c="close()" let-d="dismiss()">
+    <div class="modal-header">
+      <h4 class="modal-title">Guardar cambios</h4>
+      <button type="button" class="close" (click)="d" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h6>{{modalMessage}}</h6>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-morado" (click)="d">Cancelar</button>
+      <button type="button" class="btn btn-info" (click)="c">Guardar</button>
+    </div>
+</ng-template>

@@ -1,0 +1,16 @@
+@import '../../../styles.scss';
+.wrapper {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+a {
+    color: $red-tec;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: $amarillo-tec;
+    text-decoration: underline;
+}

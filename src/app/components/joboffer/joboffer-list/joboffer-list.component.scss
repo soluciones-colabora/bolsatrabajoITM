@@ -1,0 +1,23 @@
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import '../../../styles/variables.style.scss';
+.icon-aprobar {
+    color: $success;
+    font-size: 25px;
+}
+
+.icon-visualizar {
+    color: $primary;
+    font-size: 25px;
+}
+
+.icon-suspender {
+    color: $amarillo;
+    font-size: 25px;
+}
+
+.icon-eliminar {
+    color: $danger;
+    font-size: 25px;
+}
